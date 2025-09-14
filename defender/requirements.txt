@@ -6,3 +6,4 @@ annoy
 numpy
 tqdm
 pefile
+requests

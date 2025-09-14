@@ -3,10 +3,11 @@ import envparse
 from defender.apps import create_app
 
 # CUSTOMIZE: import model to be used
-from defender.models.ember_model import StatefulNNEmberModel
-from defender.models.nfs_behemot_model import NFSBehemotModel
-from defender.models.nfs_commite_model import NFSCommiteBehemotModel
-from defender.models.nfs_model import PEAttributeExtractor, NFSModel, NeedForSpeedModel
+# from defender.models.ember_model import StatefulNNEmberModel
+# from defender.models.nfs_behemot_model import NFSBehemotModel
+# from defender.models.nfs_commite_model import NFSCommiteBehemotModel
+# from defender.models.nfs_model import PEAttributeExtractor, NFSModel, NeedForSpeedModel
+from defender.models.dev_model import DevModel
 
 if __name__ == "__main__":
     # retrive config values from environment variables
@@ -29,8 +30,10 @@ if __name__ == "__main__":
     
     # model = NFSBehemotModel()
     # model = NFSCommiteBehemotModel()
-    model = NFSModel(open(os.path.dirname(__file__) + "/models/nfs_full.pickle", "rb"))
+    # model = NFSModel(open(os.path.dirname(__file__) + "/models/nfs_full.pickle", "rb"))
     # model = NFSModel(open(os.path.dirname(__file__) + "/models/nfs_libraries_functions_nostrings.pickle", "rb"))
+
+    model = DevModel()
 
     app = create_app(model)
 

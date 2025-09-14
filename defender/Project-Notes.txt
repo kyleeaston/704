@@ -1,0 +1,4 @@
+Things I learned about how to run the project:
+- Running the docker instance initiates a server listening on port 8080, you run the test module seperately to send samples to the server
+- Test module must be run in WSL!!!!!!!
+- python3 -m test -m defender/samples/malware/ -b defender/samples/benign/ # note: malware samples were not read
