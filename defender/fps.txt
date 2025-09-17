@@ -1,0 +1,8 @@
+HelpPane.exe
+hh.exe
+notepad.exe
+py.exe
+pyw.exe
+regedit.exe
+TbtP2pShortcutService.exe
+winhlp32.exe
