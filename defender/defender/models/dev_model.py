@@ -54,9 +54,7 @@ class DevModel(object):
 
     def predict(self, bytez: bytes) -> int:
         features = self.extract_features(bytez)
-        print(features)
         X = np.array(features).reshape(1, -1)  # 1 sample, n_features columns
-        print(X)
         res = int(self.model.predict(X)[0])
         return res
 

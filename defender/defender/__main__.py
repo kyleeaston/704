@@ -1,37 +1,14 @@
-import os
-import envparse
+# import envparse
 from defender.apps import create_app
 
 # CUSTOMIZE: import model to be used
-# from defender.models.ember_model import StatefulNNEmberModel
-# from defender.models.nfs_behemot_model import NFSBehemotModel
-# from defender.models.nfs_commite_model import NFSCommiteBehemotModel
-# from defender.models.nfs_model import PEAttributeExtractor, NFSModel, NeedForSpeedModel
 from defender.models.dev_model import DevModel
 
 if __name__ == "__main__":
     # retrive config values from environment variables
     # model_gz_path = envparse.env("DF_MODEL_GZ_PATH", cast=str, default="models/ember_model.txt.gz")
-    # model_thresh = envparse.env("DF_MODEL_THRESH", cast=float, default=0.8336)
-    # model_name = envparse.env("DF_MODEL_NAME", cast=str, default="ember")
-    # model_ball_thresh = envparse.env("DF_MODEL_BALL_THRESH", cast=float, default=0.25)
-    # model_max_history = envparse.env("DF_MODEL_HISTORY", cast=int, default=10_000)
-
-    # construct absolute path to ensure the correct model is loaded
-    # if not model_gz_path.startswith(os.sep):
-    #     model_gz_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), model_gz_path)
 
     # CUSTOMIZE: app and model instance
-    # model = StatefulNNEmberModel(model_gz_path,
-                                #  model_thresh,
-                                #  model_ball_thresh,
-                                #  model_max_history,
-                                #  model_name)
-    
-    # model = NFSBehemotModel()
-    # model = NFSCommiteBehemotModel()
-    # model = NFSModel(open(os.path.dirname(__file__) + "/models/nfs_full.pickle", "rb"))
-    # model = NFSModel(open(os.path.dirname(__file__) + "/models/nfs_libraries_functions_nostrings.pickle", "rb"))
 
     model = DevModel()
 

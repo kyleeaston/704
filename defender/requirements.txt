@@ -8,3 +8,4 @@ tqdm
 pefile
 requests
 joblib
+scikit-leran

@@ -1,4 +1,4 @@
-FROM python:3.7-slim
+FROM python:3.12-slim
 
 #############################
 # INSTALL PYTHON DEPENDENCIES
@@ -14,21 +14,15 @@ ENV PATH="/opt/venv/bin:$PATH"
 
 # copy and install python requirements + ember from github
 COPY docker-requirements.txt .
-RUN pip install --no-cache-dir -r docker-requirements.txt \
- && pip install --no-cache-dir git+https://github.com/endgameinc/ember.git
+RUN pip install --no-cache-dir -r docker-requirements.txt 
 
 #############################
 # REBASE & DEPLOY CODE
 #############################
 
 # rebase to make a smaller image
-FROM python:3.7-slim
+FROM python:3.12-slim
 
-# required libgomp1 for ember
-RUN apt-get -o Acquire::Max-FutureTime=100000 update \
-    && apt-get -y --no-install-recommends install \
-        libgomp1 \
-    && rm -rf /var/lib/apt/lists/*
 
 # copy python virtual env (all dependencies) from previous image
 COPY --from=0 /opt/venv /opt/venv
@@ -54,16 +48,11 @@ WORKDIR /opt/defender/
 ENV PATH="/opt/venv/bin:$PATH"
 ENV PYTHONPATH="/opt/defender"
 
-# upgrade numpy cause its being gay
-# RUN pip install --upgrade "numpy==2.3.2"
 
 
 # one may tune model file / threshold / name via environmental variables
-ENV DF_MODEL_GZ_PATH models/ember_model.txt.gz
-ENV DF_MODEL_THRESH 0.8336
-ENV DF_MODEL_NAME ember
-ENV DF_MODEL_BALL_THRESH 0.25
-ENV DF_MODEL_HISTORY 10000
+# ENV DF_MODEL_GZ_PATH models/ember_model.txt.gz
+
 
 #############################
 # RUN CODE
