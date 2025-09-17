@@ -15,8 +15,8 @@ import joblib
 
 
 
-SAMPLES_PATH = "samples-training\pe-machine-learning-dataset\pe-machine-learning-dataset\samples"
-SAMPLES_CSV_PATH = "samples-training\pe-machine-learning-dataset\pe-machine-learning-dataset\samples.csv"
+SAMPLES_PATH = "samples-training/pe-machine-learning-dataset/pe-machine-learning-dataset/samples"
+SAMPLES_CSV_PATH = "samples-training/pe-machine-learning-dataset/pe-machine-learning-dataset/samples.csv"
 
 df = pd.read_csv(SAMPLES_CSV_PATH)
 
@@ -25,7 +25,7 @@ Y = []
 count =0 
 for _, row in tqdm.tqdm(df.iterrows(), total=len(df), desc="Extracting features"):
     count += 1
-    if count % 1000 != 0:
+    if count % 100 != 0:
         continue
     file_id = str(row["id"])  # filenames in SAMPLES_PATH
     label = row["list"]       # "Whitelist" or "Blacklist"
@@ -51,9 +51,6 @@ clf.fit(X, Y)
 joblib.dump(clf, "../defender/defender/models/dev_model.pkl") 
 
 
-# # save trained model
-# with open('../defender/defender/models/dev_model.pkl','wb') as f:
-#     pickle.dump(clf,f)
 
 
 

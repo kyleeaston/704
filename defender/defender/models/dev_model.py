@@ -4,14 +4,9 @@ import numpy as np
 DEV_MODEL_PATH = "defender/models/dev_model.pkl"
 
 class DevModel(object):
-    def __init__(self, thresh: float = 0.1234, name: str = 'dummy'):
-        # with open(DEV_MODEL_PATH, 'rb') as f:
-        #     saved_dev_model = pickle.load(f)
+    def __init__(self):
         saved_dev_model = joblib.load(DEV_MODEL_PATH)
-
         self.model = saved_dev_model
-        self.thresh = thresh
-        self.__name__ = name
 
     def extract_features(self, data: bytes):
         try:
