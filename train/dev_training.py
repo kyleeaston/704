@@ -1,17 +1,9 @@
-import sys         
-import pefile          
 import os
-import pickle
 import pandas as pd
 import tqdm
 from sklearn import svm 
 from dev_pe_extraction import extract_features
 import joblib
-
-
-########### IMPORTANT #############
-# before training the model, downgrade pip
-# pip install "numpy==1.26.4"
 
 
 
