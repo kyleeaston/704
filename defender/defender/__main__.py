@@ -3,7 +3,7 @@ import envparse
 from defender.apps import create_app
 
 # CUSTOMIZE: import model to be used
-from defender.models.ember_model import StatefulNNEmberModel
+# from defender.models.ember_model import StatefulNNEmberModel
 # from defender.models.nfs_behemot_model import NFSBehemotModel
 # from defender.models.nfs_commite_model import NFSCommiteBehemotModel
 # from defender.models.nfs_model import PEAttributeExtractor, NFSModel, NeedForSpeedModel
