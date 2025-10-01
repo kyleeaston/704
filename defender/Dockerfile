@@ -51,7 +51,7 @@ ENV PYTHONPATH="/opt/defender"
 
 
 # one may tune model file / threshold / name via environmental variables
-# ENV DF_MODEL_GZ_PATH models/ember_model.txt.gz
+ENV THRESHOLD_ENV=0.609
 
 
 #############################

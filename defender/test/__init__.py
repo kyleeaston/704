@@ -11,7 +11,7 @@ import json
 import numpy as np
 import os
 
-MAXFILESIZE = 2**21  # 2 MiB
+MAXFILESIZE = 2**50  # 2 MiB
 TIMEOUT = 5
 ZIP_PASSWORDS = [b'', b'infected']
 
@@ -114,7 +114,6 @@ def measure_efficacy(benignfiles, maliciousfiles, url, maxfilesize, timeout, sil
     fps = []
     fns = []
     errors = []
-
     for i, (fname, bytez) in tqdm.tqdm(enumerate(file_bytes_generator(maliciousfiles, maxfilesize)), desc="malicious", disable=silent):
         if stop_after and i >= stop_after:
             break

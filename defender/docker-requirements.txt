@@ -6,4 +6,5 @@ numpy
 pandas
 scikit-learn
 joblib
-
+envparse
+lief

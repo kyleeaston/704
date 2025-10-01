@@ -1,6 +1,13 @@
 import joblib
 import pefile
 import numpy as np
+import envparse
+from defender.models.pe_extraction_dev_v2 import PEFeatureExtractorLief
+
+# extractor = PEFeatureExtractorLief(section_entropy_bins=10)
+extractor = PEFeatureExtractorLief()
+
+THRESHOLD_ENV = envparse.env("THRESHOLD_ENV", cast=float, default=0.5)
 DEV_MODEL_PATH = "defender/models/dev_model.pkl"
 
 class DevModel(object):
@@ -8,50 +15,16 @@ class DevModel(object):
         saved_dev_model = joblib.load(DEV_MODEL_PATH)
         self.model = saved_dev_model
 
-    def extract_features(self, data: bytes):
-        try:
-            pe = pefile.PE(data=data)
-
-            try:
-                size_of_code = pe.OPTIONAL_HEADER.SizeOfCode
-            except Exception:
-                size_of_code = 0
-
-            try:
-                num_sections = len(pe.sections)
-            except Exception:
-                num_sections = 0
-
-            try:
-                entry_point = pe.OPTIONAL_HEADER.AddressOfEntryPoint
-            except Exception:
-                entry_point = 0
-
-            try:
-                size_of_image = pe.OPTIONAL_HEADER.SizeOfImage
-            except Exception:
-                size_of_image = 0
-
-            features = np.array(
-                [size_of_code, num_sections, entry_point, size_of_image],
-                dtype=np.float64
-            )
-
-            # Clean up NaN/inf values just in case
-            features = np.nan_to_num(features, nan=0.0, posinf=0.0, neginf=0.0)
-
-            return features
-
-        except Exception as e:
-            print(f"Completely failed to parse PE data: {e}")
-            # If parsing fails at the top level, return zeros
-            return np.zeros(4, dtype=np.float64)
 
     def predict(self, bytez: bytes) -> int:
-        features = self.extract_features(bytez)
+        features, names = extractor.extract(bytez)
+
         X = np.array(features).reshape(1, -1)  # 1 sample, n_features columns
+        probs = self.model.predict_proba(X)[:, 1]  # probability of malware
+        y_pred = (probs > THRESHOLD_ENV).astype(int)
         res = int(self.model.predict(X)[0])
-        return res
+        print(f"Threshold Result: {y_pred}\tNon-Threshold Result: {res}\tScore: {probs}")
+        return int(y_pred)
 
     def model_info(self):
         return {"thresh": self.thresh,
