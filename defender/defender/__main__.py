@@ -2,7 +2,7 @@
 from defender.apps import create_app
 
 # CUSTOMIZE: import model to be used
-from defender.models.dev_model import DevModel
+from defender.models.whitebox_mlp_model import WhiteboxMLPEmberModel
 
 if __name__ == "__main__":
     # retrive config values from environment variables
@@ -10,7 +10,8 @@ if __name__ == "__main__":
 
     # CUSTOMIZE: app and model instance
 
-    model = DevModel()
+    model = WhiteboxMLPEmberModel("models/whitebox_mlp.pt")
+
 
     app = create_app(model)
 
